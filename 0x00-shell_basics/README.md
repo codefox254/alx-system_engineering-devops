@@ -1,1 +1,2 @@
 Create a script that creates a directory named my_first_directory in the /tmp/ directory
+this file contains scripts that print aboslute path name of current working directories 0-current_working_directory,
