@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# manage_my_process
+
+# Function to write "I am alive!" message to file every 2 seconds
+write_message() {
+    while true; do
+        echo "I am alive!" >> /tmp/my_process
+        sleep 2
+    done
+}
+
+write_message
+

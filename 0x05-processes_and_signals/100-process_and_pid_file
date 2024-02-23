@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# This script stops the 4-to_infinity_and_beyond process without using kill
+
+# Create a named pipe (FIFO)
+fifo="/tmp/stop_signal"
+if [[ ! -p "$fifo" ]]; then
+    mkfifo "$fifo"
+fi
+
+# Start the process
+/path/to/4-to_infinity_and_beyond &
+
+# Get the PID of the process
+pid=$!
+
+# Wait for the signal to stop the process
+read stop_signal < "$fifo"
+if [[ "$stop_signal" == "stop" ]]; then
+    echo "Stopping process 4-to_infinity_and_beyond..."
+    # Optional: Add any additional cleanup here before exiting
+    exit 0
+fi
+

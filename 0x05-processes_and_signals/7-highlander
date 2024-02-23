@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This script stops the 7-highlander process instead of the 4-to_infinity_and_beyond one
+
+# Find the PID of the 7-highlander process
+pid=$(pgrep -f "7-highlander")
+
+# Check if the PID is not empty
+if [ -n "$pid" ]; then
+    # Send SIGTERM signal to the process
+    kill -SIGTERM "$pid"
+    echo "Process 7-highlander (PID: $pid) stopped."
+else
+    echo "Process 7-highlander not found."
+fi
+
