@@ -1,23 +1,23 @@
 #!/usr/bin/env bash
-file="school"
+# Specify the path to your school file
+FILE="/path/to/school/file.txt"
 
 # Check if the file exists
-if [ -e "$file" ]; then
+if [ -e "$FILE" ]; then
     echo "school file exists"
-    
+
     # Check if the file is empty
-    if [ -s "$file" ]; then
+    if [ -s "$FILE" ]; then
         echo "school file is not empty"
     else
         echo "school file is empty"
     fi
-    
+
     # Check if the file is a regular file
-    if [ -f "$file" ]; then
+    if [ -f "$FILE" ]; then
         echo "school is a regular file"
-    else
-        :
     fi
 else
     echo "school file does not exist"
 fi
+
