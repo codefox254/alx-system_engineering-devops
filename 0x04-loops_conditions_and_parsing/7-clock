@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
-# Initialize variables for hours and minutes
-Hour=0
+# This script displays the time for 12 hours and 59 minutes
+
+hour=0
+minute=1
 
 while [ $hour -le 12 ]
 do
-    echo "Hour: $hour"
-    minute=1
     while [ $minute -le 59 ]
     do
-        echo "$minute"
-        minute=$((minute + 1))
+        echo "$hour hour(s) and $minute minute(s)"
+        ((minute++))
     done
-    hour=$((hour + 1))
-done
+    minute=1
+    ((hour++))
+done | head -n 70

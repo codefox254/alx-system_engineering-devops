@@ -1,23 +1,20 @@
 #!/usr/bin/env bash
-# Initialize a counter
-counter=1
+# This script displays numbers from 1 to 20 and specific messages for 4, 9, and 17
 
-# Using a while loop to iterate from 1 to 20
-while [ $counter -le 20 ]; do
-    case $counter in
+count=1
+while [ $count -le 20 ]
+do
+    echo "$count"
+    case $count in
         4)
-            echo "$counter: bad luck from China"
+            echo "bad luck from China"
             ;;
         9)
-            echo "$counter: bad luck from Japan"
+            echo "bad luck from Japan"
             ;;
         17)
-            echo "$counter: bad luck from Italy"
-            ;;
-        *)
-            echo "$counter"
+            echo "bad luck from Italy"
             ;;
     esac
-    # Increment the counter
-    ((counter++))
+    ((count++))
 done
