@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Get listening ports with corresponding PIDs
+listening_ports=$(netstat -tuln | awk '/^tcp/ || /^udp/ {print $4,$7}')
+
+# Print header
+echo "Active Internet connections (only servers)"
+echo "Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name"
+
+# Loop through listening ports
+while read -r line; do
+    proto=$(echo "$line" | awk '{print $1}')
+    local_address=$(echo "$line" | awk '{print $2}')
+    pid=$(echo "$line" | awk '{print $NF}')
+    
+    # Get program name corresponding to PID
+    program_name=$(ps -p $pid -o comm= 2>/dev/null)
+    
+    # Print information
+    echo "$proto        -       -       $local_address                 LISTEN      $pid/$program_name"
+done <<< "$listening_ports"
+
