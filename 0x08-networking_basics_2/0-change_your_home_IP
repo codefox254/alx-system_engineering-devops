@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Configure DNS resolution for localhost and facebook.com
+
+# Add localhost entry to /etc/hosts
+echo "127.0.0.2 localhost" | sudo tee -a /etc/hosts
+
+# Add facebook.com entry to /etc/hosts
+echo "8.8.8.8 facebook.com" | sudo tee -a /etc/hosts
+
+# Restart networking service (optional, but recommended)
+sudo systemctl restart networking
+
+echo "Configuration completed successfully!"
+

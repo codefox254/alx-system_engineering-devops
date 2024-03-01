@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Display active IPv4 addresses
+
+# Using nmap to scan the local network
+sudo nmap -sn 192.168.1.*
+
+# Alternatively, you can use the arp-scan command
+# sudo apt-get install arp-scan
+# sudo arp-scan --interface=eth0 --localnet
+
+echo "Active IPv4 addresses listed."
+

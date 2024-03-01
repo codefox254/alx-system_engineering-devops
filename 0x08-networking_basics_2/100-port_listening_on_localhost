@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Listen on port 98 and display received data
+
+# Start listening on port 98
+nc -l -p 98 > /dev/null &
+
+# Wait for incoming data
+while true; do
+    read -r data
+    echo "Received: $data"
+done
+
