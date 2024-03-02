@@ -1,12 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash
+# Get active IPv4 addresses using ifconfig
+ipv4_addresses=$(ifconfig | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+' | grep -v '127.0.0.1')
+
 # Display active IPv4 addresses
-
-# Using nmap to scan the local network
-sudo nmap -sn 192.168.1.*
-
-# Alternatively, you can use the arp-scan command
-# sudo apt-get install arp-scan
-# sudo arp-scan --interface=eth0 --localnet
-
-echo "Active IPv4 addresses listed."
+echo "$ipv4_addresses"
 
