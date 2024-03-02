@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Ping an IP address and display results
 
+# Check if no arguments are provided
 if [ $# -eq 0 ]; then
     echo "Usage: $(basename $0) {IP_ADDRESS}"
     exit 1
@@ -8,9 +9,16 @@ fi
 
 ip_address="$1"
 
-# Ping the IP address 5 times
-ping_result=$(ping -c 5 "$ip_address")
+# Ping the IP address 5 times and capture the result
+ping_result=$(ping -c 5 "$ip_address" 2>&1)
 
-# Display the ping results
-echo "$ping_result"
+# Check if the ping command was successful
+if [ $? -eq 0 ]; then
+    # Display the ping results
+    echo "$ping_result"
+else
+    # If the ping fails, display an error message
+    echo "Ping failed for IP address: $ip_address"
+    exit 1
+fi
 
