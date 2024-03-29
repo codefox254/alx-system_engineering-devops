@@ -1,9 +1,59 @@
-<mxfile host="app.diagrams.net" modified="2024-03-29T16:07:12.588Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0" version="24.2.1" etag="JyANvVmzaZ24qZoQ-1bv" type="github">
+<mxfile host="app.diagrams.net" modified="2024-03-29T16:54:11.157Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0" etag="D-Jfj6q1n5sKKFJIYmVn" version="24.2.1" type="github">
   <diagram name="Page-1" id="348xRaatX3WtSx5Au7U1">
-    <mxGraphModel>
+    <mxGraphModel dx="1434" dy="942" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="0fuhWGdhiLnmkcCZKIHe-1" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="180" width="180" height="218" as="geometry" />
+        </mxCell>
+        <mxCell id="0fuhWGdhiLnmkcCZKIHe-2" value="&lt;div&gt;DNS:&amp;nbsp;&lt;/div&gt;&lt;div&gt;(www.foobar.com)&lt;/div&gt;&lt;div&gt;ip address: 8.8.8.8&lt;br&gt;&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="200" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="0fuhWGdhiLnmkcCZKIHe-4" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.16;entryY=0.55;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1.011;exitY=0.454;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="0fuhWGdhiLnmkcCZKIHe-1" target="0fuhWGdhiLnmkcCZKIHe-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="210" y="277" as="sourcePoint" />
+            <mxPoint x="348.79999999999995" y="272.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0fuhWGdhiLnmkcCZKIHe-6" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.532;exitY=-0.004;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.489;entryY=0.95;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="0fuhWGdhiLnmkcCZKIHe-7" target="0fuhWGdhiLnmkcCZKIHe-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="383" y="440" as="sourcePoint" />
+            <mxPoint x="450" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0fuhWGdhiLnmkcCZKIHe-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0fuhWGdhiLnmkcCZKIHe-7" target="0fuhWGdhiLnmkcCZKIHe-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0fuhWGdhiLnmkcCZKIHe-7" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="260" y="430" width="280" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="0fuhWGdhiLnmkcCZKIHe-8" value="" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/SQL_Servers.svg;" vertex="1" parent="1">
+          <mxGeometry x="480" y="505" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="0fuhWGdhiLnmkcCZKIHe-9" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.servers;" vertex="1" parent="1">
+          <mxGeometry x="290" y="480" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="0fuhWGdhiLnmkcCZKIHe-10" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.servers.application_server;" vertex="1" parent="1">
+          <mxGeometry x="400" y="502" width="46" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="0fuhWGdhiLnmkcCZKIHe-11" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#DF8C42;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.veeam2.cdp;" vertex="1" parent="1">
+          <mxGeometry x="368" y="640" width="34" height="34" as="geometry" />
+        </mxCell>
+        <UserObject label="www.foobar.com" id="0fuhWGdhiLnmkcCZKIHe-13">
+          <mxCell style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#232F3E;fillColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.client;" vertex="1" parent="1">
+            <mxGeometry x="50" y="190" width="120" height="120" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="0fuhWGdhiLnmkcCZKIHe-14" value="&lt;div&gt;Web Server (NGNX)&lt;/div&gt;&lt;div&gt;App Server (Python)&lt;/div&gt;&lt;div&gt;DataBase(SQL)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;CODEBASE&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="580" y="475" width="185" height="185" as="geometry" />
+        </mxCell>
+        <mxCell id="0fuhWGdhiLnmkcCZKIHe-18" value="" style="points=[[0.35,0,0],[0.98,0.51,0],[1,0.71,0],[0.67,1,0],[0,0.795,0],[0,0.65,0]];verticalLabelPosition=bottom;sketch=0;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.user;fillColor=#005073;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="50" y="10" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="0fuhWGdhiLnmkcCZKIHe-23" value="http:\\" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="210" width="100" height="60" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
