@@ -1,7 +1,6 @@
 #!/bin/bash
-# Get active IPv4 addresses using ifconfig
-ipv4_addresses=$(ifconfig | grep -oP '(?<=inet\s)\d+\.\d+\.\d+\.\d+' | grep -v '127.0.0.1')
+# Get active IPv4 addresses using ip
+ipv4_addresses=$(ip -o -4 addr show scope global | awk '{print $4}' | cut -d'/' -f1)
 
 # Display active IPv4 addresses
 echo "$ipv4_addresses"
-
