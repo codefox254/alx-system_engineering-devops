@@ -1,29 +1,42 @@
-# Puppet manifest to configure SSH client for passwordless authentication
+# Puppet script to customize SSH configuration for passwordless server access
+# by specifying a custom SSH private key and disabling password authentication.
 
-# Ensure SSH directory exists
-file { '/etc/ssh':
-  ensure => directory,
-}
+include stdlib
 
-# Configure SSH client to use private key for authentication
-file_line { 'Declare identity file':
+file_line { 'SSH Private Key':
   path               => '/etc/ssh/ssh_config',
   line               => '    IdentityFile ~/.ssh/school',
-  match              => '^(\s*)IdentityFile\s.*',
-  append_on_no_match => true,
+  match              => '^[#]+[\s]*(?i)IdentityFile[\s]+~/.ssh/id_rsa$',
+  replace            => true,
+  append_on_no_match => true
 }
 
-# Configure SSH client to refuse password authentication
-file_line { 'Turn off passwd auth':
+# Explanation of the regular expression:
+#
+# ^       Start of the line
+# [#]*    Zero or more hash characters
+# [\s]*   Zero or more whitespace characters
+# (?i)    Case-insensitive match
+# IdentityFile  Exact match for "IdentityFile"
+# [\s]+   One or more whitespace characters
+# ~/.ssh/id_rsa   Exact match for the default SSH private key path
+# $       End of the line
+
+file_line { 'Deny Password Auth':
   path               => '/etc/ssh/ssh_config',
   line               => '    PasswordAuthentication no',
-  match              => '^(\s*)PasswordAuthentication\s.*',
-  append_on_no_match => true,
+  match              => '^[#]+[\s]*(?i)PasswordAuthentication[\s]+(yes|no)$',
+  replace            => true,
+  append_on_no_match => true
 }
 
-# Notify SSH service to reload configuration
-service { 'ssh':
-  ensure  => running,
-  enable  => true,
-  require => File['/etc/ssh/ssh_config'],
-}
+# Explanation of the regular expression:
+#
+# ^       Start of the line
+# [#]*    Zero or more hash characters
+# [\s]*   Zero or more whitespace characters
+# (?i)    Case-insensitive match
+# PasswordAuthentication  Exact match for "PasswordAuthentication"
+# [\s]+   One or more whitespace characters
+# (yes|no)   Match either "yes" or "no"
+# $       End of the line
