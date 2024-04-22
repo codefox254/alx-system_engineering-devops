@@ -1,1 +1,1 @@
-shell basics the repository contains and will contain shell basic assignments solutions
+Thi shell basics the repository contains and will contain shell basic assignments solutions
