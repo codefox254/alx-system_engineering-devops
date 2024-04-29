@@ -2,11 +2,8 @@
 # Deploy load balancer
 
 echo -e "Updating and performing some minor checks...\n"
-
 install() {
   command -v "$1" &> /dev/null
-
-  # shellcheck disable=SC2181
   if [ $? -ne 0 ]; then
     echo -e "    Installing: $1\n"
     sudo apt-get update -y -qq && \
@@ -17,10 +14,8 @@ install() {
   fi
 }
 
-install haproxy # Install haproxy
-
+install haproxy
 echo -e "\nSetting up some minor stuff.\n"
-
 # Backup default server config file
 sudo cp /etc/haproxy/haproxy.cfg haproxy_default.backup
 
@@ -44,12 +39,8 @@ backend clickviral-tech-backend
 
 # shellcheck disable=SC2154
 echo "$server_config" | sudo dd status=none of=/etc/haproxy/haproxy.cfg
-
-# Enable haproxy to be started by init script
 echo "ENABLED=1" | sudo dd status=none of=/etc/default/haproxy
-
 echo "Configured - Roundrobin On web-01 & web-02"
-
 if [ "$(pgrep -c haproxy)" -le 0 ]; then
   sudo service haproxy start
 else

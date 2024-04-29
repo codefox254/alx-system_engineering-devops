@@ -3,11 +3,8 @@
 # These scripts represent an evolution from the web-server scripts.
 
 echo -e "Updating and performing some minor checks...\n"
-
 install() {
   command -v "$1" &> /dev/null
-
-  # shellcheck disable=SC2181
   if [ $? -ne 0 ]; then
     echo -e "    Installing: $1$\n"
     sudo apt-get update -y -qq && \
@@ -18,14 +15,9 @@ install() {
   fi
 }
 
-install nginx # install nginx
-
+install nginx
 echo -e "\nSetting up some minor stuff.\n"
-
-# Allow nginx through firewall
 sudo ufw allow 'Nginx HTTP'
-
-# Give the user ownership of website files for easy editing
 if [ -d "/var/www" ]; then
   sudo chown -R "$USER":"$USER" /var/www
   sudo chmod -R 755 /var/www
@@ -34,21 +26,13 @@ else
   sudo chown -R "$USER":"$USER" /var/www
   sudo chmod -R 755 /var/www
 fi
-
-# Create directories if not present
 for dir in /var/www/{html,error}; do
   if ! [ -d "$dir" ]; then
     mkdir -p "$dir"
   fi
 done
-
-# Create new index
 echo "Hello World!" > /var/www/html/index.html
-
-# Create new error page
 echo "Ceci n'est pas une page" > /var/www/html/error_404.html
-
-# Backup default server config file
 sudo cp /etc/nginx/sites-enabled/default nginx-sites-enabled_default.backup
 
 server_config="
@@ -71,7 +55,6 @@ server {
     }
 }"
 
-# shellcheck disable=SC2154
 echo "$server_config" | sudo dd status=none of=/etc/nginx/sites-enabled/default
 
 if [ "$(pgrep -c nginx)" -le 0 ]; then
