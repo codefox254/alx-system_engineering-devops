@@ -2,24 +2,26 @@
 # replicate web-01 to web-02
 # These scripts represent an evolution from the web-server scripts.
 
-esudo apt-get update
+sudo apt-get update
 sudo apt-get install -y nginx
 
-# Creat an index.html page
+# Create an index.html page
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
 # Perform a "moved permanently redirection" (301)
-new_string="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/besthor permanent;"
+new_string="server_name _;\n\trewrite ^/redirect_me https://github.com/codefox254 permanent;"
 sudo sed -i "s/server_name _;/$new_string/" /etc/nginx/sites-enabled/default
 
-# Creat a 404 Custom error page
+# Create a 404 Custom error page
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
-new_string="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
-
+new_string="listen 80 default_server;\n\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\troot /var/www/html;\n\t\tinternal;\n\t}"
 sudo sed -i "s/listen 80 default_server;/$new_string/" /etc/nginx/sites-enabled/default
 
-# Creat an HTTP response header
+# Create an HTTP response header
 sudo sed -i "/server_name _/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
+
+# Include web-01 and web-02 in the configuration
+# Placeholder for your server-specific configurations
 
 # Test configurations for syntax error
 sudo nginx -t
