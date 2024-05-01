@@ -17,12 +17,13 @@ echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 new_string="listen 80 default_server;\n\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\troot /var/www/html;\n\t\tinternal;\n\t}"
 sudo sed -i "s/listen 80 default_server;/$new_string/" /etc/nginx/sites-enabled/default
 
-# Create an HTTP response header
-header_string="add_header X-Served-By \$HOSTNAME;"
+# Create an HTTP response header for web-01
+header_string="add_header X-Served-By web-01;"
 sudo sed -i "/server_name _/a $header_string" /etc/nginx/sites-enabled/default
 
-# Include web-01 and web-02 in the configuration
-# Placeholder for your server-specific configurations
+# Create an HTTP response header for web-02
+header_string="add_header X-Served-By web-02;"
+sudo sed -i "/server_name _/a $header_string" /etc/nginx/sites-enabled/default
 
 # Test configurations for syntax error
 sudo nginx -t
