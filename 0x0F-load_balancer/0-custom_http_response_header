@@ -1,32 +1,22 @@
 #!/usr/bin/env bash
-# replicate web-01 to web-02
-# These scripts represent an evolution from the web-server scripts.
+# Configure web-02 to be identical to web-01
+# Add custom Nginx response header
 
+# Update package information
 sudo apt-get update
+
+# Install Nginx
 sudo apt-get install -y nginx
 
 # Create an index.html page
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
-# Perform a "moved permanently redirection" (301)
-new_string="server_name _;\n\trewrite ^/redirect_me https://github.com/codefox254 permanent;"
-sudo sed -i "s/server_name _;/$new_string/" /etc/nginx/sites-enabled/default
+# Configure Nginx to include the custom response header
+custom_header="add_header X-Served-By \$HOSTNAME;"
+sudo sed -i "/server_name _/a $custom_header" /etc/nginx/sites-enabled/default
 
-# Create a 404 Custom error page
-echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
-new_string="listen 80 default_server;\n\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\troot /var/www/html;\n\t\tinternal;\n\t}"
-sudo sed -i "s/listen 80 default_server;/$new_string/" /etc/nginx/sites-enabled/default
-
-# Create an HTTP response header for web-01
-header_string="add_header X-Served-By web-01;"
-sudo sed -i "/server_name _/a $header_string" /etc/nginx/sites-enabled/default
-
-# Create an HTTP response header for web-02
-header_string="add_header X-Served-By web-02;"
-sudo sed -i "/server_name _/a $header_string" /etc/nginx/sites-enabled/default
-
-# Test configurations for syntax error
+# Test Nginx configuration for syntax errors
 sudo nginx -t
 
-# Restart nginx after implementing change
+# Restart Nginx to apply changes
 sudo service nginx restart
