@@ -1,29 +1,30 @@
 #!/usr/bin/env bash
 # Deploy load balancer
 
-# Installd and configure HAproxy on my lb-01 server.
+# Install and configure HAProxy on my lb-01 server.
 sudo apt-get -y update
-apt-get -y install haproxy
+sudo apt-get -y install haproxy
 
-# edit config filed
+# Edit config file
 server_config=\
 "
-frontend  besthor_frontend
-        bind *:80
-        mode http
-        default_backend besthor_backend
+frontend besthor_frontend
+    bind *:80
+    mode http
+    default_backend codefox254_backend
+
 backend besthor_backend
-        balance roundrobin
-        server 176572-web-01 54.165.168.252:80 check
-        server 176572-web-02 34.237.91.136:80 check
+    balance roundrobin
+    server web-01 34.239.248.207:80 check
+    server web-02 35.175.128.155:80 check
 "
 echo "$server_config" | sudo tee -a /etc/haproxy/haproxy.cfg
 
-# enabled haproxy to be started by init script
+# Enable HAProxy to be started by the init script
 echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
 
-# Testing the HAproxy configuration file
+# Test the HAProxy configuration file
 sudo haproxy -c -f /etc/haproxy/haproxy.cfg
 
-# Restart the Nginx service
+# Restart the HAProxy service
 sudo service haproxy restart
