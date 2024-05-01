@@ -18,7 +18,8 @@ new_string="listen 80 default_server;\n\terror_page 404 /404.html;\n\tlocation =
 sudo sed -i "s/listen 80 default_server;/$new_string/" /etc/nginx/sites-enabled/default
 
 # Create an HTTP response header
-sudo sed -i "/server_name _/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
+header_string="add_header X-Served-By \$HOSTNAME;"
+sudo sed -i "/server_name _/a $header_string" /etc/nginx/sites-enabled/default
 
 # Include web-01 and web-02 in the configuration
 # Placeholder for your server-specific configurations
