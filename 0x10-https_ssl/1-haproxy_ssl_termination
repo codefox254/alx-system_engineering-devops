@@ -1,0 +1,27 @@
+global
+    log /dev/log local0
+    log /dev/log local1 notice
+    chroot /var/lib/haproxy
+    user haproxy
+    group haproxy
+    daemon
+
+defaults
+    log global
+    mode http
+    option httplog
+    option dontlognull
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+frontend www-https
+    bind *:443 ssl crt /etc/letsencrypt/live/www.yourdomain.com/fullchain.pem
+    reqadd X-Forwarded-Proto:\ https
+    default_backend web_servers
+
+backend web_servers
+    redirect scheme https if !{ ssl_fc }
+    server web-01 34.239.248.207:80 check
+    server web-02 35.175.128.155:80 check
+

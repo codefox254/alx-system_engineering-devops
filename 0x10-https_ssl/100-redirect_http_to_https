@@ -1,0 +1,13 @@
+frontend http-in
+    bind *:80
+    mode http
+    redirect scheme https code 301 if !{ ssl_fc }
+
+frontend https-in
+    bind *:443 ssl crt /etc/letsencrypt/live/www.yourdomain.com/fullchain.pem
+    default_backend web_servers
+
+backend web_servers
+    server web-01 34.239.248.207:80 check
+    server web-02 35.175.128.155:80 check
+
