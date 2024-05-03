@@ -1,42 +1,17 @@
 #!/usr/bin/env bash
 # This script configures domain zone subdomains and display subdomain
-display_subdomain_info() {
-    local domain="$1"
-    local subdomain="$2"
-    local record_type="$(dig +short "$subdomain.$domain" | awk 'NR==1 {print toupper($1)}')"
-    local destination="$(dig +short "$subdomain.$domain" | awk 'NR==1 {print $1}')"
-    echo "The subdomain $subdomain is a $record_type record and points to $destination"
+
+print_domain_subdomain () {
+    dig "$1" | grep -A1 'ANSWER SECTION:' | sed -r "s/$1./$2/g" | awk -F" " ' NR==2 { print "The subdomain " $1 " is a " $4 " record and points to " $5 }'
 }
 
-# Function to display information about default subdomains
-display_default_subdomains_info() {
-    local domain="$1"
-    display_subdomain_info "$domain" "www"
-    display_subdomain_info "$domain" "lb-01"
-    display_subdomain_info "$domain" "web-01"
-    display_subdomain_info "$domain" "web-02"
-}
-
-# Main function
-main() {
-    local domain="$1"
-    local subdomain="$2"
-
-    if [ -z "$subdomain" ]; then
-        # Display information for default subdomains if only domain is provided
-        display_default_subdomains_info "$domain"
-    else
-        # Display information for the specified subdomain
-        display_subdomain_info "$domain" "$subdomain"
-    fi
-}
-
-# Check if both domain and subdomain parameters are provided
-if [ $# -lt 1 ] || [ $# -gt 2 ]; then
-    echo "Usage: $0 <domain> [subdomain]"
-    exit 1
+if [ "$#" -eq 2 ]
+then
+    print_domain_subdomain "$2.$1" "$2"
+else
+    print_domain_subdomain "www.$1" "www"
+    print_domain_subdomain "lb-01.$1" "lb-01"
+    print_domain_subdomain "web-01.$1" "web-01"
+    print_domain_subdomain "web-02.$1" "web-02"
 fi
-
-# Execute main function
-main "$@"
 
