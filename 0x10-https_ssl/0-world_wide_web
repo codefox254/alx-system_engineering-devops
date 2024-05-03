@@ -1,50 +1,42 @@
 #!/usr/bin/env bash
-# This script configures domain zone subdomains and displays their information.
-
-# Function to display subdomain info
-display_info() {
-  local domain="$1"
-  local subdomain="$2"
-  local ip="$3"
-  echo "The subdomain ${subdomain} is an A record and points to ${ip}"
+# This script configures domain zone subdomains and display subdomain
+display_subdomain_info() {
+    local domain="$1"
+    local subdomain="$2"
+    local record_type="$(dig +short "$subdomain.$domain" | awk 'NR==1 {print toupper($1)}')"
+    local destination="$(dig +short "$subdomain.$domain" | awk 'NR==1 {print $1}')"
+    echo "The subdomain $subdomain is a $record_type record and points to $destination"
 }
 
-# Check for mandatory domain argument
-if [ -z "$1" ]; then
-  echo "Error: Domain name is required."
-  exit 1
+# Function to display information about default subdomains
+display_default_subdomains_info() {
+    local domain="$1"
+    display_subdomain_info "$domain" "www"
+    display_subdomain_info "$domain" "lb-01"
+    display_subdomain_info "$domain" "web-01"
+    display_subdomain_info "$domain" "web-02"
+}
+
+# Main function
+main() {
+    local domain="$1"
+    local subdomain="$2"
+
+    if [ -z "$subdomain" ]; then
+        # Display information for default subdomains if only domain is provided
+        display_default_subdomains_info "$domain"
+    else
+        # Display information for the specified subdomain
+        display_subdomain_info "$domain" "$subdomain"
+    fi
+}
+
+# Check if both domain and subdomain parameters are provided
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+    echo "Usage: $0 <domain> [subdomain]"
+    exit 1
 fi
 
-# Actual IPs for the subdomains
-lb01_ip="100.26.10.204"
-web01_ip="34.239.248.207"
-web02_ip="35.175.128.155"
-
-# Configure subdomains
-# Note: The actual configuration will depend on your DNS provider's setup
-# Here we are just simulating the output
-if [ -z "$2" ]; then
-  # Display info for default subdomains if no specific subdomain is provided
-  display_info "$1" "www" "$lb01_ip"
-  display_info "$1" "lb-01" "$lb01_ip"
-  display_info "$1" "web-01" "$web01_ip"
-  display_info "$1" "web-02" "$web02_ip"
-else
-  # Display info for the specified subdomain
-  case $2 in
-    "www"|"lb-01")
-      display_info "$1" "$2" "$lb01_ip"
-      ;;
-    "web-01")
-      display_info "$1" "$2" "$web01_ip"
-      ;;
-    "web-02")
-      display_info "$1" "$2" "$web02_ip"
-      ;;
-    *)
-      echo "Error: Unknown subdomain."
-      exit 1
-      ;;
-  esac
-fi
+# Execute main function
+main "$@"
 
