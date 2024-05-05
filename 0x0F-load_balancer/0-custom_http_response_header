@@ -13,7 +13,7 @@ echo "Hello World!" | sudo tee /var/www/html/index.html
 
 # Configure Nginx to include the custom response header
 custom_header="add_header X-Served-By \$HOSTNAME;"
-sudo sed -i "/server_name _/a $custom_header" /etc/nginx/sites-available/default
+sudo sed -i '/server_name _;/a \\t'"$custom_header" /etc/nginx/sites-available/default
 
 # Enable the default site
 sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
