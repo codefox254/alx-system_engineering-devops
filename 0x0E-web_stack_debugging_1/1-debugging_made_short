@@ -3,4 +3,3 @@
 [ ! "$(service nginx status)" = *"is running"* ] && service nginx start
 sed -i 's/listen 80;/listen 0.0.0.0:80;/' /etc/nginx/sites-available/default
 nginx -t && service nginx reload
-
