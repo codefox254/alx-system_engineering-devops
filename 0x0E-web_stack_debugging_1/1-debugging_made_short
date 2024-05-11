@@ -3,4 +3,5 @@
 
 ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 service nginx start
-kill "$(pgrep 'nginx' | head -n 1)"
+sleep 1
+kill -s QUIT $(pgrep nginx | head -n 1)
