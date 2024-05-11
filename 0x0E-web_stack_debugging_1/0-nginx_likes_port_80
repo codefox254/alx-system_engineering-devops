@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 # Ensures Nginx is running and listening on port 80
+
+# Restart Nginx
 sudo systemctl restart nginx
+
+# Modify Nginx configuration to listen on port 80
 sudo sed -i 's/listen [::]:80;/listen 80;/' /etc/nginx/sites-available/default
+
+# Reload Nginx
 sudo systemctl reload nginx
 
+# Check Nginx status
+if sudo systemctl is-active --quiet nginx; then
+    echo "Nginx is running."
+else
+    echo "Nginx is not running."
+fi
