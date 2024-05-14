@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Stop existing Nginx service
+service nginx stop
+
+# Update Nginx config
+echo "listen 8080 default_server;" > /etc/nginx/conf.d/custom.conf
+sed -i 's/user www-data;/user nginx;/' /etc/nginx/nginx.conf
+
+# Start Nginx
+service nginx start
+

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Stop the existing Nginx service
+service nginx stop
+
+# Update the Nginx configuration to listen on all active IPs and port 8080
+echo "listen 8080 default_server;" > /etc/nginx/conf.d/custom.conf
+
+# Change the user to 'nginx' in the Nginx configuration
+sed -i 's/user www-data;/user nginx;/' /etc/nginx/nginx.conf
+
+# Start the Nginx service
+service nginx start
+
+# Verify that Nginx is running as the 'nginx' user
+ps auxff | grep 'ngin[x]'
+
+# Check if port 8080 is open
+nc -z 0 8080
