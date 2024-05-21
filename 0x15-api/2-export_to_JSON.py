@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """This file Records all tasks that are owned by this employee"""
-import requests
-import json
 import csv
+import json
+import requests
 import sys
 
 if __name__ == '__main__':
