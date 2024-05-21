@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ This script , returns information about his/her TODO list progress"""
-import requests
 import csv
+import requests
 import sys
 
 import sys
