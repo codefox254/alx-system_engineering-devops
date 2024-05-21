@@ -1,44 +1,31 @@
 #!/usr/bin/python3
 # This script fetches tasks from all employees and exports them to a JSON file.
 
-import requests
+import csv
 import json
+import requests
+import sys
 
-def export_all_employees_todo_to_json():
-    # Replace with the actual API endpoint URL
-    api_url = "https://api.example.com/todos"
 
-    try:
-        response = requests.get(api_url)
-        todos = response.json()
+if __name__ == '__main__':
+    USER_ID = sys.argv[1]
+    url_to_user = 'https://jsonplaceholder.typicode.com/users/' + USER_ID
+    res = requests.get(url_to_user)
+    """Documentation"""
+    USERNAME = res.json().get('username')
+    """Documentation"""
+    url_to_task = url_to_user + '/todos'
+    res = requests.get(url_to_task)
+    tasks = res.json()
 
-        # Create a dictionary to store tasks for all employees
-        all_tasks_dict = {}
-
-        # Populate the dictionary with task information
-        for task in todos:
-            user_id = task.get("userId")
-            if user_id not in all_tasks_dict:
-                all_tasks_dict[user_id] = []
-            task_info = {
-                "username": task.get("username"),
-                "task": task.get("title"),
-                "completed": task.get("completed")
-            }
-            all_tasks_dict[user_id].append(task_info)
-
-        # Define the JSON file name
-        json_file = "todo_all_employees.json"
-
-        # Write the dictionary to a JSON file
-        with open(json_file, 'w') as file:
-            json.dump(all_tasks_dict, file, indent=4)
-
-        print(f"Data for all employees has been written to {json_file}")
-
-    except requests.RequestException as e:
-        print(f"Error fetching data from the API: {e}")
-
-if __name__ == "__main__":
-    export_all_employees_todo_to_json()
-
+    dict_data = {USER_ID: []}
+    for task in tasks:
+        TASK_COMPLETED_STATUS = task.get('completed')
+        TASK_TITLE = task.get('title')
+        dict_data[USER_ID].append({
+                                  "task": TASK_TITLE,
+                                  "completed": TASK_COMPLETED_STATUS,
+                                  "username": USERNAME})
+    """print(dict_data)"""
+    with open('{}.json'.format(USER_ID), 'w') as f:
+        json.dump(dict_data, f)

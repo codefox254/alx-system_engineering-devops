@@ -2,40 +2,28 @@
 """This file Records all tasks that are owned by this employee"""
 import requests
 import json
+import csv
+import sys
 
-def export_employee_todo_to_json(employee_id):
-    # Replace with the actual API endpoint URL
-    api_url = f"https://api.example.com/employees/{employee_id}/todos"
+if __name__ == '__main__':
+    USER_ID = sys.argv[1]
+    url_to_user = 'https://jsonplaceholder.typicode.com/users/' + USER_ID
+    res = requests.get(url_to_user)
+    """Documentation"""
+    USERNAME = res.json().get('username')
+    """Documentation"""
+    url_to_task = url_to_user + '/todos'
+    res = requests.get(url_to_task)
+    tasks = res.json()
 
-    try:
-        response = requests.get(api_url)
-        todos = response.json()
-
-        # Create a dictionary to store the tasks
-        tasks_dict = {employee_id: []}
-
-        # Populate the dictionary with task information
-        for task in todos:
-            task_info = {
-                "task": task.get("title"),
-                "completed": task.get("completed"),
-                "username": todos.get("employee_name")
-            }
-            tasks_dict[employee_id].append(task_info)
-
-        # Define the JSON file name
-        json_file = f"{employee_id}.json"
-
-        # Write the dictionary to a JSON file
-        with open(json_file, 'w') as file:
-            json.dump(tasks_dict, file, indent=4)
-
-        print(f"Data for employee ID {employee_id} has been written to {json_file}")
-
-    except requests.RequestException as e:
-        print(f"Error fetching data from the API: {e}")
-
-if __name__ == "__main__":
-    employee_id = int(input("Enter the employee ID: "))
-    export_employee_todo_to_json(employee_id)
-
+    dict_data = {USER_ID: []}
+    for task in tasks:
+        TASK_COMPLETED_STATUS = task.get('completed')
+        TASK_TITLE = task.get('title')
+        dict_data[USER_ID].append({
+                                  "task": TASK_TITLE,
+                                  "completed": TASK_COMPLETED_STATUS,
+                                  "username": USERNAME})
+    """print(dict_data)"""
+    with open('{}.json'.format(USER_ID), 'w') as f:
+        json.dump(dict_data, f)
