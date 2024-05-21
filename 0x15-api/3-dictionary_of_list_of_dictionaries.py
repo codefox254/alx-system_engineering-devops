@@ -1,34 +1,36 @@
 #!/usr/bin/python3
-# This script fetches tasks from all employees and exports them to a JSON file.
+"""This script fetches tasks from all employees and exports them to a JSON file."""
 
 import json
 import requests
 import sys
 
-if __name__ == '__main__':
-    url = "https://jsonplaceholder.typicode.com/users"
-
-    resp = requests.get(url)
-    Users = resp.json()
+def fetch_tasks():
+    users_url = "https://jsonplaceholder.typicode.com/users"
+    users_resp = requests.get(users_url)
+    if users_resp.status_code != 200:
+        print("Failed to retrieve users.")
+        sys.exit(1)
+    users = users_resp.json()
 
     users_dict = {}
-    for user in Users:
-        USER_ID = user.get('id')
-        USERNAME = user.get('username')
-        url = 'https://jsonplaceholder.typicode.com/users/{}'.format(USER_ID)
-        url = url + '/todos/'
-        resp = requests.get(url)
+    for user in users:
+        user_id = user.get('id')
+        username = user.get('username')
+        tasks_url = f'https://jsonplaceholder.typicode.com/users/{user_id}/todos/'
+        tasks_resp = requests.get(tasks_url)
+        if tasks_resp.status_code != 200:
+            print(f"Failed to retrieve tasks for user {user_id}.")
+            continue
+        tasks = tasks_resp.json()
+        users_dict[user_id] = [{
+            "task": task.get('title'),
+            "completed": task.get('completed'),
+            "username": username
+        } for task in tasks]
 
-        tasks = resp.json()
-        users_dict[USER_ID] = []
-        for task in tasks:
-            TASK_COMPLETED_STATUS = task.get('completed')
-            TASK_TITLE = task.get('title')
-            users_dict[USER_ID].append({
-                "task": TASK_TITLE,
-                "completed": TASK_COMPLETED_STATUS,
-                "username": USERNAME
-            })
-            """A little Something"""
     with open('todo_all_employees.json', 'w') as f:
         json.dump(users_dict, f)
+
+if __name__ == '__main__':
+    fetch_tasks()
