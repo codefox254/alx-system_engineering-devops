@@ -23,7 +23,9 @@ def fetch_tasks():
     for user in users:
         user_id = user.get('id')
         username = user.get('username')
-        tasks_url = f'https://jsonplaceholder.typicode.com/users/{user_id}/todos/'
+        tasks_url = (
+            f'https://jsonplaceholder.typicode.com/users/{user_id}/todos/'
+        )
         tasks_resp = requests.get(tasks_url)
 
         if tasks_resp.status_code != 200:
