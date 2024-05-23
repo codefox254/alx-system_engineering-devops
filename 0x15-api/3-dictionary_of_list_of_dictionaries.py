@@ -23,8 +23,9 @@ def fetch_tasks():
     for user in users:
         user_id = user.get('id')
         username = user.get('username')
-        # Split the line to fit within the recommended limit
-        tasks_url = f'https://jsonplaceholder.typicode.com/users/{user_id}/todos/'
+        tasks_url = f'https://jsonplaceholder.typicode.com/users/'
+        endpoint = '/todos/'
+        user_id = 1
         tasks_resp = requests.get(tasks_url)
 
         if tasks_resp.status_code != 200:
