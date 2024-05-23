@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""This script fetches tasks from all employees and exports them to a JSON file."""
+"""
+This script fetches tasks from all employees and exports them to a JSON file.
+"""
 
 import json
 import requests
@@ -21,9 +23,9 @@ def fetch_tasks():
     for user in users:
         user_id = user.get('id')
         username = user.get('username')
-        # E501: Line too long, split into two lines
-        tasks_url = (f'https://jsonplaceholder.typicode.com/users/'
-                     f'{user_id}/todos/')
+        # Split the line to fit within the recommended limit
+        tasks_url = f'https://jsonplaceholder.typicode.com
+        /users/{user_id}/todos/'
         tasks_resp = requests.get(tasks_url)
 
         if tasks_resp.status_code != 200:
@@ -41,7 +43,6 @@ def fetch_tasks():
 
     with open('todo_all_employees.json', 'w') as f:
         json.dump(users_dict, f)
-
 
 if __name__ == '__main__':
     fetch_tasks()
