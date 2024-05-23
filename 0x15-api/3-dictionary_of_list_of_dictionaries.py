@@ -42,5 +42,6 @@ def fetch_tasks():
     with open('todo_all_employees.json', 'w') as f:
         json.dump(users_dict, f)
 
+
 if __name__ == '__main__':
     fetch_tasks()
