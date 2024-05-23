@@ -11,7 +11,6 @@ def fetch_tasks():
     users_url = "https://jsonplaceholder.typicode.com/users"
     users_resp = requests.get(users_url)
 
-    
     if users_resp.status_code != 200:
         print("Failed to retrieve users.")
         sys.exit(1)
@@ -22,7 +21,9 @@ def fetch_tasks():
     for user in users:
         user_id = user.get('id')
         username = user.get('username')
-        tasks_url = f'https://jsonplaceholder.typicode.com/users/{user_id}/todos/'
+        # E501: Line too long, split into two lines
+        tasks_url = (f'https://jsonplaceholder.typicode.com/users/'
+                     f'{user_id}/todos/')
         tasks_resp = requests.get(tasks_url)
 
         if tasks_resp.status_code != 200:
@@ -40,6 +41,7 @@ def fetch_tasks():
 
     with open('todo_all_employees.json', 'w') as f:
         json.dump(users_dict, f)
+
 
 if __name__ == '__main__':
     fetch_tasks()
