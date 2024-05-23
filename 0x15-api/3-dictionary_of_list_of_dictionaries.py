@@ -20,13 +20,11 @@ def fetch_tasks():
     users = users_resp.json()
     users_dict = {}
 
-   for user in users:
-    user_id = user.get('id')
-    username = user.get('username')
-    tasks_url = (
-        f'https://jsonplaceholder.typicode.com/users/{user_id}/todos/'
-    )
-    tasks_resp = requests.get(tasks_url)
+    for user in users:
+        user_id = user.get('id')
+        username = user.get('username')
+        tasks_url = f'https://jsonplaceholder.typicode.com/users/{user_id}/todos/'
+        tasks_resp = requests.get(tasks_url)
 
         if tasks_resp.status_code != 200:
             print(f"Failed to retrieve tasks for user {user_id}.")
